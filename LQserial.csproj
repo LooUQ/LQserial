@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>LQserial</AssemblyName>
+    <ApplicationIcon>LQserial.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Product>LQserial</Product>
+    <Company>LooUQ Incorporated</Company>
+    <Copyright>Copyright (c) 2026 LooUQ Incorporated</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LQserial.ico" />
+    <Resource Include="LooUQ-logo.png" />
+  </ItemGroup>
+</Project>

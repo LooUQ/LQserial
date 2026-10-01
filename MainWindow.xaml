@@ -1,0 +1,249 @@
+<Window x:Class="LQserial.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LQserial" Icon="LQserial.ico" Width="1000" Height="850" MinWidth="900" MinHeight="600"
+        Foreground="#1E2A3A" FontFamily="Aptos Narrow, Segoe UI" FontSize="13"
+        Closing="Window_Closing">
+  <Window.Background>
+    <SolidColorBrush Color="#B7C6D9"/>
+  </Window.Background>
+  <Window.Resources>
+    <Color x:Key="BrandColor">#025EC7</Color>
+    <SolidColorBrush x:Key="Brand" Color="#025EC7"/>
+    <SolidColorBrush x:Key="BrandDark" Color="#014A9C"/>
+    <SolidColorBrush x:Key="BrandDarker" Color="#013A7A"/>
+    <SolidColorBrush x:Key="BrandTint" Color="#E3EEFB"/>
+    <SolidColorBrush x:Key="BrandBorder" Color="#9CBFE8"/>
+    <SolidColorBrush x:Key="WindowBg" Color="#F3F7FC"/>
+    <SolidColorBrush x:Key="Gray" Color="#808284"/>
+    <SolidColorBrush x:Key="GrayDark" Color="#5F6163"/>
+    <SolidColorBrush x:Key="GrayTint" Color="#ECEDED"/>
+    <SolidColorBrush x:Key="GrayBorder" Color="#B9BABB"/>
+    <SolidColorBrush x:Key="InkBrush" Color="#1E2A3A"/>
+
+    <Style TargetType="GroupBox">
+      <Setter Property="Padding" Value="6,4,6,6"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="GroupBox">
+            <Grid>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+              <Border Grid.RowSpan="2" Margin="0,10,0,0" BorderBrush="{StaticResource Gray}" BorderThickness="1" CornerRadius="4" Background="White"/>
+              <Border Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="6,0" Background="{StaticResource Brand}" CornerRadius="3">
+                <ContentPresenter ContentSource="Header" TextElement.Foreground="White" TextElement.FontWeight="SemiBold"/>
+              </Border>
+              <ContentPresenter Grid.Row="1" Margin="{TemplateBinding Padding}"/>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style TargetType="Button">
+      <Setter Property="Padding" Value="8,3"/>
+      <Setter Property="Margin" Value="2"/>
+      <Setter Property="Foreground" Value="{StaticResource BrandDark}"/>
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="BorderBrush" Value="{StaticResource Brand}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1" CornerRadius="3" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="{StaticResource BrandTint}"/></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="{StaticResource BrandBorder}"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="bd" Property="Opacity" Value="0.45"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryButton" TargetType="Button">
+      <Setter Property="Padding" Value="8,3"/>
+      <Setter Property="Margin" Value="2"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Background" Value="{StaticResource Brand}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource BrandDark}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1" CornerRadius="3" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="{StaticResource BrandDark}"/></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="{StaticResource BrandDarker}"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="bd" Property="Opacity" Value="0.45"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style TargetType="TextBox"><Setter Property="BorderBrush" Value="{StaticResource GrayBorder}"/></Style>
+    <Style TargetType="TextBlock" x:Key="ColHeader"><Setter Property="Foreground" Value="{StaticResource GrayDark}"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="HorizontalAlignment" Value="Center"/><Setter Property="VerticalAlignment" Value="Center"/></Style>
+    <Style x:Key="GrayButton" TargetType="Button">
+      <Setter Property="Padding" Value="8,3"/>
+      <Setter Property="Margin" Value="2"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Background" Value="{StaticResource Gray}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource GrayDark}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1" CornerRadius="3" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="{StaticResource GrayDark}"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="bd" Property="Opacity" Value="0.45"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="CheckBox"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="Margin" Value="4,2"/></Style>
+    <Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="Margin" Value="4,0"/></Style>
+    <Style TargetType="ComboBox"><Setter Property="Margin" Value="2"/><Setter Property="MinWidth" Value="60"/></Style>
+  </Window.Resources>
+  <DockPanel>
+  <Menu DockPanel.Dock="Top" Background="#E3EEFB" Foreground="#1E2A3A" Padding="4,2">
+    <MenuItem Header="_Help">
+      <MenuItem Header="_Help Topics" InputGestureText="F1" Click="Help_Click"/>
+      <Separator/>
+      <MenuItem Header="_About LQserial" Click="About_Click"/>
+    </MenuItem>
+  </Menu>
+  <Grid Margin="8">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="430"/>
+      <ColumnDefinition Width="8"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- TERMINAL (right) -->
+    <Grid Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <GroupBox Header="COM Port Setting" Grid.Row="0">
+        <Grid>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <WrapPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="COM Port:"/><ComboBox x:Name="PortBox" DropDownOpened="PortBox_DropDownOpened"/></StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="Baudrate:"/><ComboBox x:Name="BaudBox" IsEditable="True"/></StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="StopBits:"/><ComboBox x:Name="StopBox"/></StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="Parity:"/><ComboBox x:Name="ParityBox"/></StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="ByteSize:"/><ComboBox x:Name="DataBox"/></StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4"><TextBlock Text="Flow Control:"/><ComboBox x:Name="FlowBox"/></StackPanel>
+          </WrapPanel>
+          <Button x:Name="OpenBtn" Style="{StaticResource PrimaryButton}" Grid.Column="1" Content="Open Port" FontWeight="Bold" FontSize="13" Padding="14,6" Click="OpenBtn_Click"/>
+        </Grid>
+      </GroupBox>
+
+      <Grid Grid.Row="1" Margin="0,6,0,6">
+        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="70"/></Grid.RowDefinitions>
+        <TextBox x:Name="RxBox" IsReadOnly="True" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+        <TextBox x:Name="EventBox" Background="{StaticResource GrayTint}" Grid.Row="1" IsReadOnly="True" FontFamily="Consolas" Margin="0,4,0,0"
+                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+      </Grid>
+
+      <GroupBox Header="Operation" Grid.Row="2">
+        <Grid>
+          <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+          <Button Content="Clear Information" Click="ClearInfo_Click" Margin="4"/>
+          <WrapPanel Grid.Column="1">
+            <CheckBox x:Name="DtrChk" Content="DTR" Checked="Dtr_Changed" Unchecked="Dtr_Changed"/>
+            <CheckBox x:Name="RtsChk" Content="RTS" Checked="Rts_Changed" Unchecked="Rts_Changed"/>
+            <CheckBox x:Name="ShowTimeChk" Content="Show Time"/>
+            <CheckBox x:Name="ShowHexChk" Content="Show In HEX"/>
+            <CheckBox x:Name="HexStringChk" Content="HEX String"/>
+            <CheckBox x:Name="SendEnterChk" Content="Send With Enter" IsChecked="True"/>
+          </WrapPanel>
+          <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <StackPanel>
+              <TextBlock Text="Input String:" Margin="4,0,0,2"/>
+              <TextBox x:Name="InputBox" Height="50" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Consolas"/>
+            </StackPanel>
+            <Button x:Name="SendCmdBtn" Grid.Column="1" Content="Send Command" VerticalAlignment="Bottom" Height="40" Width="110" Click="SendCmd_Click"/>
+          </Grid>
+          <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+            <Button Content="Select File" Click="SelectFile_Click"/>
+            <TextBox x:Name="FilePathBox" Grid.Column="1" IsReadOnly="True" VerticalContentAlignment="Center" Margin="2"/>
+            <Button x:Name="SendFileBtn" Grid.Column="2" Content="Send File" Click="SendFile_Click"/>
+          </Grid>
+          <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <CheckBox x:Name="SaveLogChk" Checked="SaveLog_Changed" Unchecked="SaveLog_Changed"/>
+            <Button Grid.Column="1" Content="Save Log" Click="SaveLogPick_Click"/>
+            <TextBox x:Name="LogPathBox" Grid.Column="2" VerticalContentAlignment="Center" Margin="2"/>
+          </Grid>
+        </Grid>
+      </GroupBox>
+    </Grid>
+
+    <!-- COMMANDS (left) -->
+    <GroupBox Header="Command List" Grid.Column="0">
+      <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid Margin="0,2">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="40"/><ColumnDefinition Width="46"/><ColumnDefinition Width="70"/></Grid.ColumnDefinitions>
+          <CheckBox x:Name="AllChk" Content="Choose All Commands" Checked="AllChk_Changed" Unchecked="AllChk_Changed"/>
+          <TextBlock Grid.Column="1" Text="HEX" Style="{StaticResource ColHeader}"/>
+          <TextBlock Grid.Column="2" Text="Enter" Style="{StaticResource ColHeader}"/>
+          <TextBlock Grid.Column="3" Text="Delay(mS)" Style="{StaticResource ColHeader}"/>
+        </Grid>
+        <ScrollViewer x:Name="CmdScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="CmdScroll_PreviewMouseWheel">
+          <ItemsControl x:Name="CmdList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid Margin="0,1">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/><ColumnDefinition Width="28"/><ColumnDefinition Width="40"/><ColumnDefinition Width="56"/>
+                  </Grid.ColumnDefinitions>
+                  <CheckBox IsChecked="{Binding Selected}" Content="{Binding Index}" ContentStringFormat="{}{0}:"/>
+                  <TextBox Grid.Column="1" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" FontFamily="Consolas"/>
+                  <CheckBox Grid.Column="2" IsChecked="{Binding Hex}" HorizontalAlignment="Center"/>
+                  <CheckBox Grid.Column="3" IsChecked="{Binding Enter}" HorizontalAlignment="Center"/>
+                  <Button Grid.Column="4" Content="{Binding Index}" Tag="{Binding}" Click="RowSend_Click" Margin="1" Padding="0"/>
+                  <TextBox Grid.Column="5" Text="{Binding Delay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Margin="1"/>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="2" Margin="0,6,0,0">
+          <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <StackPanel Orientation="Horizontal">
+            <Button Content="Load Test Script" Click="LoadScript_Click"/>
+            <Button Content="Clear All Commands" Click="ClearCmds_Click"/>
+          </StackPanel>
+          <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <TextBlock Text="Run Times:"/><TextBox x:Name="RunTimesBox" Text="10" Width="50" VerticalContentAlignment="Center"/>
+          </StackPanel>
+          <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="Save As Script" Click="SaveScript_Click"/>
+            <Button x:Name="RunBtn" Style="{StaticResource PrimaryButton}" Content="Run" Width="60" Click="Run_Click"/>
+            <Button x:Name="StopBtn" Style="{StaticResource GrayButton}" Content="Stop" Width="60" IsEnabled="False" Click="Stop_Click"/>
+          </StackPanel>
+          <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock Text="Delay Time(mS):"/><TextBox x:Name="DelayBox" Text="1000" Width="50" VerticalContentAlignment="Center"/>
+          </StackPanel>
+        </Grid>
+      </Grid>
+    </GroupBox>
+  </Grid>
+  </DockPanel>
+</Window>

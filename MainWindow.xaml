@@ -150,8 +150,12 @@
 
       <Grid Grid.Row="1" Margin="0,6,0,6">
         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="70"/></Grid.RowDefinitions>
-        <TextBox x:Name="RxBox" IsReadOnly="True" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+        <RichTextBox x:Name="RxBox" IsReadOnly="True" FontFamily="Consolas" FontSize="13"
+                     VerticalScrollBarVisibility="Auto" BorderBrush="{StaticResource GrayBorder}">
+          <FlowDocument PagePadding="0">
+            <Paragraph x:Name="RxPara" Margin="0"/>
+          </FlowDocument>
+        </RichTextBox>
         <TextBox x:Name="EventBox" Background="{StaticResource GrayTint}" Grid.Row="1" IsReadOnly="True" FontFamily="Consolas" Margin="0,4,0,0"
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
       </Grid>

@@ -211,13 +211,35 @@ public partial class MainWindow : Window
         }
         else _atLineStart = text.EndsWith('\n');
 
-        AppendMain(text);
+        AppendMain(text, received: true);
     }
 
-    void AppendMain(string text)
+    static readonly System.Windows.Media.Brush RxBrush = Freeze(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xC0, 0x00, 0x00)));
+
+    static System.Windows.Media.Brush Freeze(System.Windows.Media.Brush b) { b.Freeze(); return b; }
+
+    int _rxChars;
+
+    void AppendMain(string text, bool received = false)
     {
-        RxBox.AppendText(text);
-        if (RxBox.Text.Length > MaxRxChars) RxBox.Text = RxBox.Text[^(MaxRxChars / 2)..];
+        var lines = text.Split('\n');
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (i > 0) { RxPara.Inlines.Add(new System.Windows.Documents.LineBreak()); _rxChars++; }
+            if (lines[i].Length == 0) continue;
+            var run = new System.Windows.Documents.Run(lines[i]);
+            if (received) { run.Foreground = RxBrush; run.FontWeight = FontWeights.Bold; }
+            RxPara.Inlines.Add(run);
+            _rxChars += lines[i].Length;
+        }
+
+        // keep the document bounded: drop the oldest inlines once past the limit
+        if (_rxChars > MaxRxChars)
+            while (_rxChars > MaxRxChars / 2 && RxPara.Inlines.FirstInline is { } first)
+            {
+                _rxChars -= first is System.Windows.Documents.Run r ? r.Text.Length : 1;
+                RxPara.Inlines.Remove(first);
+            }
         RxBox.ScrollToEnd();
 
         if (SaveLogChk.IsChecked == true)
@@ -285,7 +307,8 @@ public partial class MainWindow : Window
 
     void ClearInfo_Click(object sender, RoutedEventArgs e)
     {
-        RxBox.Clear();
+        RxPara.Inlines.Clear();
+        _rxChars = 0;
         EventBox.Clear();
         _atLineStart = true;
     }

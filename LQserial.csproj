@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>LQserial</AssemblyName>
     <ApplicationIcon>LQserial.ico</ApplicationIcon>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Product>LQserial</Product>
     <Company>LooUQ Incorporated</Company>
     <Copyright>Copyright (c) 2026 LooUQ Incorporated</Copyright>

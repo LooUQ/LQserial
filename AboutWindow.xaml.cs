@@ -13,6 +13,13 @@ public partial class AboutWindow : Window
         LicenseBox.Text = MitLicense;
     }
 
+    void Link_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+    {
+        try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true }); }
+        catch { /* no default browser registered; nothing useful to do */ }
+        e.Handled = true;
+    }
+
     const string MitLicense =
         "MIT License\n\n" +
         "Copyright (c) 2026 LooUQ Incorporated\n\n" +

@@ -46,7 +46,7 @@
         <TextBlock Style="{StaticResource B}" Text="•  Send With Enter — appends CR LF to Input String when sending."/>
         <TextBlock Style="{StaticResource B}" Text="•  HEX String — treats Input String as hex bytes, for example  AA 55 0D 0A  or  0xAA,0x55."/>
         <TextBlock Style="{StaticResource B}" Text="•  Select File / Send File — sends the raw bytes of a file to the port."/>
-        <TextBlock Style="{StaticResource B}" Text="•  Save Log — when ticked, everything shown in the terminal pane is appended to the file named beside it. Use the Save Log button to choose the file."/>
+        <TextBlock Style="{StaticResource B}" Text="•  Select Log / Save Log — Select Log chooses the log file. When Save Log is ticked, everything shown in the terminal pane is appended to that file."/>
 
         <TextBlock Style="{StaticResource H}" Text="Command list"/>
         <TextBlock Style="{StaticResource P}" Text="29 rows. Each row has:"/>

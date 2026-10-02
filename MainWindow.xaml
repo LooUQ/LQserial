@@ -145,7 +145,28 @@
           </Grid.ColumnDefinitions>
 
           <TextBlock Grid.Row="0" Grid.Column="0" Text="COM Port:" HorizontalAlignment="Right"/>
-          <ComboBox x:Name="PortBox" Grid.Row="0" Grid.Column="1" MinWidth="90" DropDownOpened="PortBox_DropDownOpened"/>
+          <ComboBox x:Name="PortBox" Grid.Row="0" Grid.Column="1" MinWidth="90" DropDownOpened="PortBox_DropDownOpened"
+                    ToolTip="{Binding SelectedItem.Details, RelativeSource={RelativeSource Self}}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                  <!-- device details show in the drop-down list only; the closed box shows just the port name -->
+                  <TextBlock Text="{Binding Details}" Foreground="#5F6163" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                      <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                          <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                          </DataTrigger>
+                        </Style.Triggers>
+                      </Style>
+                    </TextBlock.Style>
+                  </TextBlock>
+                </StackPanel>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
           <TextBlock Grid.Row="1" Grid.Column="0" Text="Baudrate:" HorizontalAlignment="Right"/>
           <ComboBox x:Name="BaudBox" Grid.Row="1" Grid.Column="1" MinWidth="90" IsEditable="True"/>
 

@@ -90,10 +90,11 @@ public partial class MainWindow : Window
 
     void RefreshPorts()
     {
-        var current = PortBox.SelectedItem as string;
+        var current = (PortBox.SelectedItem as PortInfo)?.Name;
         PortBox.Items.Clear();
-        foreach (var p in SerialPort.GetPortNames().OrderBy(n => int.TryParse(n.AsSpan(3), out var i) ? i : 999)) PortBox.Items.Add(p);
-        if (current != null && PortBox.Items.Contains(current)) PortBox.SelectedItem = current;
+        foreach (var p in PortInfo.Enumerate()) PortBox.Items.Add(p);
+        if (current != null)
+            PortBox.SelectedItem = PortBox.Items.Cast<PortInfo>().FirstOrDefault(p => p.Name == current);
     }
 
     void PortBox_DropDownOpened(object? sender, EventArgs e) { if (_port is not { IsOpen: true }) RefreshPorts(); }
@@ -102,7 +103,8 @@ public partial class MainWindow : Window
     {
         if (_port is { IsOpen: true }) { ClosePort(); return; }
 
-        if (PortBox.SelectedItem is not string name) { MessageBox.Show("Select a COM port."); return; }
+        if (PortBox.SelectedItem is not PortInfo selected) { MessageBox.Show("Select a COM port."); return; }
+        var name = selected.Name;
         if (!int.TryParse(BaudBox.Text, out var baud)) { MessageBox.Show("Invalid baud rate."); return; }
 
         try
@@ -122,6 +124,7 @@ public partial class MainWindow : Window
             port.DtrEnable = DtrChk.IsChecked == true;
             _port = port;
             LogEvent($"{name} opened ({baud}, {port.DataBits}, {port.Parity}, {port.StopBits}, {port.Handshake})");
+            if (selected.Details.Length > 0) LogEvent($"{name}: {selected.Details}");
         }
         catch (Exception ex)
         {

@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>LQserial</AssemblyName>
     <ApplicationIcon>LQserial.ico</ApplicationIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Product>LQserial</Product>
     <Company>LooUQ Incorporated</Company>
     <Copyright>Copyright (c) 2026 LooUQ Incorporated</Copyright>
@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="9.0.0" />
+    <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="LQserial.ico" />

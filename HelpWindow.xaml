@@ -59,7 +59,7 @@
         <TextBlock Style="{StaticResource P}" Text="Run sends every ticked, non-empty row in order, repeating the whole list Run Times times, then logs Run finished. Stop cancels it. Clear All Commands empties the list."/>
 
         <TextBlock Style="{StaticResource H}" Text="Scripts"/>
-        <TextBlock Style="{StaticResource P}" Text="Load Test Script and Save As Script use the QCOM .ini format, so scripts are interchangeable with QCOM. A script holds all 29 rows, their HEX / Enter / Delay / tick settings, Run Times and Delay Time."/>
+        <TextBlock Style="{StaticResource P}" Text="Load Test Script and Save As Script read and write plain .ini files. A script holds all 29 rows, their HEX / Enter / Delay / tick settings, Run Times and Delay Time."/>
         <TextBlock Style="{StaticResource P}" Text="LQserial remembers the last script you loaded and opens it again at startup."/>
 
         <TextBlock Style="{StaticResource H}" Text="Mouse and keyboard tips"/>

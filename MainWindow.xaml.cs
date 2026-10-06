@@ -391,7 +391,7 @@ public partial class MainWindow : Window
 
     void SaveScript_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new SaveFileDialog { Filter = "QCOM script (*.ini)|*.ini", DefaultExt = ".ini" };
+        var dlg = new SaveFileDialog { Filter = "Script (*.ini)|*.ini", DefaultExt = ".ini" };
         if (dlg.ShowDialog() != true) return;
         try
         {
@@ -416,7 +416,7 @@ public partial class MainWindow : Window
 
     void LoadScript_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFileDialog { Filter = "QCOM script (*.ini)|*.ini|All|*.*" };
+        var dlg = new OpenFileDialog { Filter = "Script (*.ini)|*.ini|All|*.*" };
         if (dlg.ShowDialog() == true) LoadScript(dlg.FileName);
     }
 
